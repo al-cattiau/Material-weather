@@ -9,6 +9,7 @@ const paperStyle = {
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
+  position:'relative'
 };
 
 
@@ -31,15 +32,16 @@ class Message extends React.Component {
     render(){        
         const zDepth = this.state.zDepth;
         return(
-                <Paper style={paperStyle} zDepth={zDepth} onMouseEnter={()=>this.mouseEnter(true)} onMouseLeave={()=>this.mouseEnter(false)}>
-                    <h2>city:{this.props.city} </h2>
-                    <h4>temperature:{this.props.temp}</h4>
-                    <h4>weather:{this.props.weather}</h4>
-                    <h4>windSpeed:{this.props.windSpeed}</h4>
-                    <i className={this.props.icon} style={{"fontSize":60}}/>
-                    <br/>
-                    <RaisedButton label={this.props.dbutton} onClick={()=>this.props.dbuttonClick(this.props.city,this.props.dbutton)} style={{"width":'50%'}}  />
-                    <RaisedButton label="Detail" onClick={()=>console.log('de')} style={{"width":'50%'}} primary={true}/>
+                <Paper style={paperStyle} zDepth={zDepth} onMouseEnter={()=>this.mouseEnter(true)} onMouseLeave={()=>this.mouseEnter(false)} >
+                    <h2>{this.props.city} </h2>
+                    <h3 style={{fontWeight:'lighter'}}>temperature:{this.props.temp}</h3>
+                    <h3 style={{fontWeight:'lighter'}}>weather:{this.props.weather}</h3>
+                    <h3 style={{fontWeight:'lighter'}}>windSpeed:{this.props.windSpeed}</h3>
+                    <i className={this.props.icon} style={{fontSize:50}} /><br/>
+                    <div style={{'position':'absolute','bottom':'0','width':'100%'}}>
+                        <RaisedButton label={this.props.dbutton} onClick={()=>this.props.dbuttonClick(this.props.city,this.props.dbutton)} style={{"width":'50%'}}  />
+                        <RaisedButton label="Detail" onClick={()=>console.log('de')} style={{"width":'50%'}} primary={true}/>
+                    </div>
                 </Paper>
         )
 

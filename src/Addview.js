@@ -9,7 +9,10 @@ class Addview extends React.Component {
 
 
   }
-  requestWeather(city){    
+  requestWeather(city){
+    console.log(city);
+    city = city['address_components'][0]['long_name'];
+    
     const gallery = <Weathergallery cities={[city]} type={'search'} key={city} /> 
     this.setState({gallery});    
   }
