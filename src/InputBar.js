@@ -1,20 +1,52 @@
 import React from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
-import $ from 'jquery';
 
 class InputBar extends React.Component {
-  constructor(props){
-    super(props);    
-    this.autocompleteServices = new google.maps.places.AutocompleteService();
+  state = {
+    dataSource: [],
+  };
 
+  constructor(props){
+    super(props);        
+    this.autocompleteServices = new window.google.maps.places.AutocompleteService();
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
   }
+  handleUpdateInput = (value) => {
+    let that = this;
+    if (!value){
+      return;
+    }
+    let source = [];
+    const request = {
+      input: value
+    }
+    this.autocompleteServices.getPlacePredictions(request,function(predictions){      
+      
+      // if(!predictions){
+      //   return;
+      // }
+      predictions.forEach(function(prediction){
+        source.push(prediction.description.toString());
+      });              
+      that.setState({ dataSource: source });
+    });
+    
+    
+  };
 
   render() {
     return (
-      <div></div>
+        <AutoComplete
+          hintText="Type anything"
+          dataSource={this.state.dataSource}
+          onUpdateInput={this.handleUpdateInput}
+          fullWidth={true}
+          floatingLabelText="Full width"
+          filter={()=>true}
+          onNewRequest={(x)=>this.props.handleSearch(x)}
+        />
     )
   }
 }
 
 export default InputBar;
-

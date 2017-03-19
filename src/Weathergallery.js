@@ -94,7 +94,7 @@ class Weathergallery extends React.Component{
         )
 
         return (
-            <div>
+            <div style={{"width":"80%","margin":"0 auto"}}>
                 {Citycards }
             </div>
         )
