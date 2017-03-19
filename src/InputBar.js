@@ -4,8 +4,8 @@ import $ from 'jquery';
 
 class InputBar extends React.Component {
   constructor(props){
-    super(props);
-    console.log(google);
+    super(props);    
+    this.autocompleteServices = new google.maps.places.AutocompleteService();
 
   }
 
