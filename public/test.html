@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDGgtEApqYio7p-V-HFGPrQ4ZWHG5onnj8&libraries=places&language=en&callback=init">
+        </script>    
+        <title>React App</title>
+    </head>
+    <body>
+    <div id="root"></div>
+    <script>
+
+        function init(){
+            let service =  new google.maps.places.AutocompleteService();
+            let request = {
+                input:'shan'
+            }
+            service.getPlacePredictions(request,function(respones){
+                respones.forEach(function(i){
+                    console.log(i.description);
+                })
+
+            });    
+        }    
+    </script>  
+    </body>
+</html>
