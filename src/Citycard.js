@@ -14,8 +14,8 @@ const paperStyle = {
 
 
 class Message extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             zDepth : 1,
         }

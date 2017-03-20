@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import { browserHistory } from 'react-router';
 import FloatingAction from './FloatingActionButton';
+import Localcity from './Localcity';
 
 class Container extends React.Component {
   constructor(){    
@@ -16,6 +17,16 @@ class Container extends React.Component {
         fbClicked: false
     }
     this.fbClick = this.fbClick.bind(this);
+    let that = this;
+    navigator.geolocation.getCurrentPosition(function(position) {
+        let latitude = position.coords.latitude.toPrecision(6);
+        let longitude = position.coords.longitude.toPrecision(6);
+        setTimeout(function() {
+            that.setState( {position: {'lat': latitude, 'lon': longitude } });
+            
+        }, 2000);
+         
+    });
   }
   toggleDrawer(){
     const showDrawer = !this.state.showDrawer;
@@ -27,9 +38,14 @@ class Container extends React.Component {
   }
   
     render(){
+        
         const rotateStyle = (this.props.children && this.props.children.type.name === 'Addview') ? {"transform":"rotate(-45deg)"} : null;
+        const position = this.state.position;
+        const ready = !this.props.children && position  ? true : false;
+        const Local = this.props.children ? null : <Localcity ready={ready} position={position}/> 
+        
         return (
-            <MuiThemeProvider>
+            <MuiThemeProvider >
                 <div>
                     <AppBar title="Material Weather" iconElementRight={<FlatButton label="Login" />} onLeftIconButtonTouchTap={()=>this.toggleDrawer()}/>
                     <Drawer
@@ -38,9 +54,11 @@ class Container extends React.Component {
                     open={this.state.showDrawer}
                     onRequestChange={(open) => this.toggleDrawer(open)}
                     >
+                        <MenuItem containerElement={<Link to="/"/>} primaryText='Home' />
                         <MenuItem containerElement={<Link to="/setting"/>} primaryText='Setting' />
                         <MenuItem containerElement={<Link to="/all"/>} primaryText='allcity' />
                     </Drawer>
+                    {Local}
                     {this.props.children}
                     <FloatingAction handleClick={()=>this.fbClick()} style={rotateStyle}/>
                 </div>

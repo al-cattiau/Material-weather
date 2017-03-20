@@ -1,23 +1,36 @@
 import { createStore } from 'redux';
 
+const initialState = {
+    cities: [],
+    celsius: true
+};
+
+
 export function addCity(city){
     return {
         type: "addCity",
         city
     }
-}
+};
 
 export function removeCity(city){
     return {
         type: "removeCity",
         city
     }
-}
-
-const initialState = {
-    cities: []
 };
 
+export function celsiusUnit(){
+    return{
+        type:"celsius"
+    }
+}
+
+export function fahrenheitUnit(){
+    return{
+        type:"fahrenheit"
+    }
+}
 
 function cityState(state=initialState, action){
     switch(action.type){
@@ -28,14 +41,30 @@ function cityState(state=initialState, action){
             return Object.assign({}, {
                 cities:[
                     ...state.cities,action.city
-                ]
+                ],
+                celsius: state.celsius
             });
         case "removeCity":
             return Object.assign({}, {
                 cities: state.cities.filter(function(i){
                         return i !== action.city
-                    })                
+                    }),
+                    celsius: state.celsius                
                 
+            });
+        case "fahrenheit":
+            return Object.assign({},{
+                cities:[
+                    ...state.cities
+                ],
+                celsius: false
+            });
+        case "celsius":
+            return Object.assign({},{
+                cities:[
+                    ...state.cities
+                ],
+                celsius: true
             });
             
     }

@@ -21,10 +21,6 @@ class InputBar extends React.Component {
       input: value
     }
     this.autocompleteServices.getPlacePredictions(request,function(predictions){      
-      
-      // if(!predictions){
-      //   return;
-      // }
       predictions.forEach(function(prediction){
         source.push(prediction.description.toString());
       });              
