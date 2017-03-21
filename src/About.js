@@ -6,19 +6,27 @@ import { connect } from 'react-redux';
 import { celsiusUnit, store, fahrenheitUnit } from './Model';
 
 class About extends React.Component {
-  constructor(props){
-    super(props);
-    
-  }
 
   toggleUnit(e){
-    if (parseInt(e) === 1){
+    if (parseInt(e,10) === 1){
       store.dispatch(celsiusUnit());      
     }else{
       store.dispatch(fahrenheitUnit());
     }
   }
-  
+  timer(e,date){
+    let timer = (date- Date.now());
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        setTimeout(function() {
+          new Notification("Hi there!");      
+      
+        }, timer);    
+      }
+    });    
+  }
+
   render(){
     const value = this.props.celsius ? 1 : 2
     return(
@@ -30,7 +38,7 @@ class About extends React.Component {
           <MenuItem value={1} primaryText="Celsius"  onTouchTap={()=>this.toggleUnit(1)}/>
           <MenuItem value={2} primaryText="Fahrenheit"  onTouchTap={()=>this.toggleUnit(2)}/>
         </SelectField>
-        <TimePicker hintText='Remind me the weather in ' />
+        <TimePicker hintText='Remind me the weather in ' onChange={this.timer} />
       </div>
 
     )

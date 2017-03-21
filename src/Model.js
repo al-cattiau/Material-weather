@@ -72,6 +72,7 @@ function cityState(state=initialState, action){
     return state;
 }
 
-export let store = createStore(cityState);
+let store = createStore(cityState);
+export default store;
 
 

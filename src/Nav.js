@@ -18,15 +18,16 @@ class Container extends React.Component {
     }
     this.fbClick = this.fbClick.bind(this);
     let that = this;
+    console.log('start');
     navigator.geolocation.getCurrentPosition(function(position) {
+        console.log('over');
         let latitude = position.coords.latitude.toPrecision(6);
-        let longitude = position.coords.longitude.toPrecision(6);
-        setTimeout(function() {
-            that.setState( {position: {'lat': latitude, 'lon': longitude } });
+        let longitude = position.coords.longitude.toPrecision(6);        
+        that.setState( {position: {'lat': latitude, 'lon': longitude } });
             
-        }, 2000);
+        
          
-    });
+    },function(err){console.log(err)},{maximumAge:60000, timeout:5000, enableHighAccuracy:true});
   }
   toggleDrawer(){
     const showDrawer = !this.state.showDrawer;
@@ -42,6 +43,7 @@ class Container extends React.Component {
         const rotateStyle = (this.props.children && this.props.children.type.name === 'Addview') ? {"transform":"rotate(-45deg)"} : null;
         const position = this.state.position;
         const ready = !this.props.children && position  ? true : false;
+        console.log('ready'+ready);
         const Local = this.props.children ? null : <Localcity ready={ready} position={position}/> 
         
         return (

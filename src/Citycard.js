@@ -2,6 +2,7 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import './weather-icons.css';
 import RaisedButton from 'material-ui/RaisedButton';
+import Citydetail from './Citydetail';
 
 const paperStyle = {
   height: 300,
@@ -18,7 +19,10 @@ class Message extends React.Component {
         super(props);
         this.state = {
             zDepth : 1,
+            openDialog: false
+            
         }
+        this.toggleDialog = this.toggleDialog.bind(this);
 
     }
     mouseEnter(enter){
@@ -27,6 +31,10 @@ class Message extends React.Component {
         }else{
             this.setState({zDepth:1});
         }
+    }
+    toggleDialog(){
+        this.setState({openDialog:!this.state.openDialog});
+
     }
 
     render(){        
@@ -40,8 +48,12 @@ class Message extends React.Component {
                     <i className={this.props.icon} style={{fontSize:50}} /><br/>
                     <div style={{'position':'absolute','bottom':'0','width':'100%'}}>
                         <RaisedButton label={this.props.dbutton} onClick={()=>this.props.dbuttonClick(this.props.city,this.props.dbutton)} style={{"width":'50%'}}  />
-                        <RaisedButton label="Detail" onClick={()=>console.log('de')} style={{"width":'50%'}} primary={true}/>
+                        <RaisedButton label="Detail" onClick={this.toggleDialog} style={{"width":'50%'}} primary={true}/>
                     </div>
+                    <Citydetail open={this.state.openDialog} 
+                    onRequestClose={this.toggleDialog}
+                    city={this.props.city}
+                    />
                 </Paper>
         )
 

@@ -16,7 +16,6 @@ class Addview extends React.Component {
   }
   render(){
     let gallery;
-    //console.log(this.state);
     if (this.state){
       gallery = this.state.gallery;
     }else{

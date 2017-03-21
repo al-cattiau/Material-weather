@@ -67,7 +67,7 @@ class Weathergallery extends React.Component{
             const weather = data['weather'][0]['main'];
             const windSpeed = data['wind']['speed'];      
             const code = data['weather'][0]['id'];
-            let icon = iconsJson[code]['icon']
+            let icon = iconsJson[code]['icon'];            
             const prefix = 'wi wi-';
             // If we are not in the ranges mentioned above, add a day/night prefix.
             if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {

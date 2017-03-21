@@ -8,7 +8,7 @@ import Connectedabout from './About';
 import Addview from './Addview';
 import { Router, Route, browserHistory } from 'react-router'
 import AllCity from './Allcity'
-import { store } from './Model';
+import store from './Model';
 
 injectTapEventPlugin();
 
