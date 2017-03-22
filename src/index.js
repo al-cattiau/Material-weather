@@ -9,6 +9,7 @@ import Addview from './Addview';
 import { Router, Route, browserHistory } from 'react-router'
 import AllCity from './Allcity'
 import store from './Model';
+import Playground from './Playground'
 
 injectTapEventPlugin();
 
@@ -22,6 +23,7 @@ ReactDOM.render((
         <Route path="/add" component={Addview}/>
         <Route path="/all" component={AllCity}/>
         <Route path="setting" component={Connectedabout}/>
+        <Route path="playground" component={Playground}/>
       </Route>
     </Router>
   </Provider>

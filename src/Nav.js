@@ -51,6 +51,7 @@ class Container extends React.Component {
                         <MenuItem containerElement={<Link to="/"/>} primaryText='Home' />
                         <MenuItem containerElement={<Link to="/setting"/>} primaryText='Setting' />
                         <MenuItem containerElement={<Link to="/all"/>} primaryText='allcity' />
+                        <MenuItem containerElement={<Link to="/playground"/>} primaryText='playground' />
                     </Drawer>
                     {Local}
                     {this.props.children}
