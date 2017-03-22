@@ -3,15 +3,15 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TimePicker from 'material-ui/TimePicker';
 import { connect } from 'react-redux';
-import { celsiusUnit, store, fahrenheitUnit } from './Model';
+import { celsiusUnit, fahrenheitUnit } from './Model';
 
 class About extends React.Component {
 
   toggleUnit(e){
     if (parseInt(e,10) === 1){
-      store.dispatch(celsiusUnit());      
+      this.props.dispatch(celsiusUnit());      
     }else{
-      store.dispatch(fahrenheitUnit());
+      this.props.dispatch(fahrenheitUnit());
     }
   }
   timer(e,date){
@@ -51,7 +51,9 @@ class About extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    celsius: state.celsius
+    celsius: state.celsius,
+    
+    
   }
 }
  const Connectedabout = connect(mapStateToProps)(About);

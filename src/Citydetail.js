@@ -1,9 +1,8 @@
 import Dialog from 'material-ui/Dialog';
 import React from 'react';
-import $ from 'jquery';
 import iconsJson from './icons.json';
 import { LineChart, Line, XAxis, YAxis } from 'recharts';
-
+import axios from 'axios';
 
 class Citydetail extends React.Component{
     constructor(props){
@@ -12,35 +11,30 @@ class Citydetail extends React.Component{
             tempArray:[],
             iconArray:[]
             
-        };
-        
-
-
+        };        
     }
     componentDidMount(){        
         let requestURL = "http://api.openweathermap.org/data/2.5/forecast?q="+this.props.city+"&APPID=2b0ae7837c64fb9101ebce70953a9218&units=metric";
         let tempArray = [];
         let iconArray= [];
-        const that = this;
-        let i=0;
-        $.getJSON(requestURL,function(data,status){
+        axios.get(requestURL).then(res=>{
+            const data = res['data'];
             data['list'].forEach(function(i){                
-                const date = new Date(i['dt'] * 1000);
-                const dateTime = date.getDate().toString()+'d.' + date.getHours().toString()+'h';
-                tempArray.push({ temp :parseInt(i['main']['temp'],10), name : i['main']['temp'], dateTime: dateTime });
-                const code = i['weather'][0]['id'];
-                let icon = iconsJson[code]['icon'];
-                const prefix = 'wi wi-';
-                if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
-                    icon = 'day-' + icon;
-                }
-                icon = prefix + icon;        
-                    iconArray.push(icon);
-                    
+            const date = new Date(i['dt'] * 1000);
+            const dateTime = date.getDate().toString()+'d.' + date.getHours().toString()+'h';
+            tempArray.push({ temp :parseInt(i['main']['temp'],10), name : i['main']['temp'], dateTime: dateTime });
+            const code = i['weather'][0]['id'];
+            let icon = iconsJson[code]['icon'];
+            const prefix = 'wi wi-';
+            if (!(code > 699 && code < 800) && !(code > 899 && code < 1000)) {
+                icon = 'day-' + icon;
+            }
+            icon = prefix + icon;        
+                iconArray.push(icon);
+                
             });                        
-            that.setState({tempArray:tempArray});
-            that.setState({iconArray:iconArray});
-
+            this.setState({tempArray:tempArray});
+            this.setState({iconArray:iconArray});
         });
     }
 

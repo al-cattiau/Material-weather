@@ -1,9 +1,9 @@
 import React from 'react';
-import $ from 'jquery';
 import iconsJson from './icons.json';
 import Citycard from './Citycard';
-import { addCity, store, removeCity } from './Model';
+import { addCity, removeCity } from './Model';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class Weathergallery extends React.Component{
     constructor(props){
@@ -20,6 +20,8 @@ class Weathergallery extends React.Component{
                 citiesMessage:[]
             }
         }
+        this.toggleModel = this.toggleModel.bind(this);
+
     }
     componentDidMount(){
         if (this.props.city){
@@ -58,10 +60,9 @@ class Weathergallery extends React.Component{
             requestURL += "&units=imperial";
             unitSign = '°F';
         }
-        
-        
-        
-        $.getJSON(requestURL,function(data,status){
+                
+        axios.get(requestURL).then(res=>{
+            const data = res['data'];
             const name = data['name'];
             const temp = data['main']['temp'] + unitSign;
             const weather = data['weather'][0]['main'];
@@ -87,21 +88,21 @@ class Weathergallery extends React.Component{
             newArray.push(cityMessage)
             this.setState({'citiesMessage':newArray});            
             
-        }.bind(this));
+        })
     }
 
     toggleModel(city,dbutton){
-        if (dbutton === 'remove'){
-            store.dispatch(removeCity(city));            
+        if (dbutton === 'remove'){                     
+            this.props.dispatch(removeCity(city));
         }else{            
-            store.dispatch(addCity(city));                        
+            this.props.dispatch(addCity(city));
         }        
 
     }
     render(){
         const Citycards = this.state.citiesMessage.map((message)=>
             <Citycard dbutton={this.state.dbutton} 
-            dbuttonClick={(city,dbutton)=>this.toggleModel(city,dbutton)}
+            dbuttonClick={this.toggleModel}
             city={message.city} 
             temp={message.temp} 
             weather={message.weather} 
@@ -125,7 +126,9 @@ class Weathergallery extends React.Component{
 const mapStateToProps = (state) =>{
     return {
         cities: state.cities,
-        celsius: state.celsius
+        celsius: state.celsius,
+        addCity: state.addCity,
+        removeCity: state.removeCity,
     }
 }
 
