@@ -2,7 +2,7 @@
 
 This is a web app project build on React, React-router, Redux, Material-UI etc.
 
-[中文文档](./https://github.com/kingliujiaxin/Material-weather/blob/master/README_CN.md)
+[中文文档](README_CN.md)
 
 ## useage
 
