@@ -18,7 +18,8 @@ class InputBar extends React.Component {
     }
     let source = [];
     const request = {
-      input: value
+      input: value,
+      types: ['(cities)'],
     }
     if (this.autocompleteServices){
       this.autocompleteServices.getPlacePredictions(request,function(predictions){      

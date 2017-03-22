@@ -64,7 +64,7 @@ class Citydetail extends React.Component{
         this.state.dailyIconArray.map((daily)=>        
         <div key={daily.day} style={{'margin':'20px'}}>
             <i className={daily.icon} style={{fontSize:50}} />
-            <p>{daily.day}</p>
+            <p style={{'textAlign':'center'}}>{daily.day}</p>
         </div>
         ) :null
         return(
